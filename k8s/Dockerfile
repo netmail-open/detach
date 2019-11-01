@@ -12,6 +12,6 @@ RUN  npm install -g  typescript
 RUN  npm install
 RUN  tsc
 
-ENV STORE http://download.netmail.com node
+ENV STORE http://download.netmail.com
 #Do the work
 CMD ["node", "."]
