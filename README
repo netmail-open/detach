@@ -5,15 +5,16 @@ This is a free/libre sucessor to Netmail Secure's Attachment Stripping Agent.
 It consists of:
 
 - a RESTful detach API (node service)
-- a milter wrapper
+- a milter wrapper (in progress)
 - some quick tests
 
 
 Configuration
 -------------
 
-Detach needs a place to store the stripped attachments.
-(and maybe something to tell it a transformed url)
+Detach needs a place to store the stripped attachments.  Provide this with a
+  STORE
+environment variable, or with the --store argument.
 
 
 Requirements
@@ -31,19 +32,24 @@ $ cd api
 $ npm install
 $ tsc
 
-Optionally, build the milter:
-$ cd milter
-$ npm install
-$ tsc
-
 
 Run
 ---
 
 Once the detach api service is built:
 $ cd api
-$ node .
+$ STORE=http://caspoorhost:3237 node .
 
-optionally, run the milter:
-$ cd milter
-$ node .
+
+Use
+---
+
+To strip attachments from a message, POST its RFC822 data to /detach/ :
+$ curl -H "Content-Type: text/plain" --data-binary @test.eml -X POST \
+    http://localhost:7001/detach/ >stripped.eml
+
+The message will then contain links instead of attachments.
+
+To restore the attachments, POST a stripped message to /reattach/ :
+$ curl -H "Content-Type: text/plain" --data-binary @stripped.eml -X POST \
+    http://localhost:7001/reattach/ >restored.eml
