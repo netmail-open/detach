@@ -22,6 +22,7 @@ function sendToStore(part, node, filename, type) {
 				port: uri.port || 80,
 				method: "POST",
 				headers: {
+					"Host": uri.hostname,
 					"Content-Type": type,
 					"Content-Disposition": [
 						"attachment",
@@ -168,7 +169,7 @@ function recvFromStore(part, node) {
 				hostname: uri.hostname,
 				port: uri.port || 80,
 				method: "GET",
-				headers: {},
+				headers: { "Host": uri.hostname },
 				path: uri.pathname
 			}, function(res) {
 				let data = [];
