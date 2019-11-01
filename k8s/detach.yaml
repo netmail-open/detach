@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: detach
+  namespace: prod
+  labels:
+    app: detach
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: detach
+  template:
+    metadata:
+      labels:
+        app: detach
+    spec:
+      containers:
+      - name: detach
+        image: netgovern/detach:latest
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 7001
+            scheme: HTTP
+          initialDelaySeconds: 300
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 2
+        ports:
+          - containerPort: 7001
+            name: http
+      imagePullSecrets:
+        - name: dockerhubcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: detach
+spec:
+  ports:
+  - nodePort: 32701
+    protocol: TCP
+    targetPort: 7001
+    name: detach
+  selector:
+    app: detach
+  type: nodePort
