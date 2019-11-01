@@ -17,7 +17,7 @@
 	"paths": {
 		"/detach/": {
 			"post": {
-				"summary": "submit email",
+				"summary": "strip email attachments",
 				"description": "post an email with attachments and receive a stripped version",
 				"operationId": "stripAttachments",
 				"x-swagger-router-controller": "detach",
@@ -44,7 +44,7 @@
 		},
 		"/reattach/": {
 			"post": {
-				"summary": "submit email",
+				"summary": "restore email attachments",
 				"description": "post an email with stripped attachments and receive a recovered version",
 				"operationId": "recoverAttachments",
 				"x-swagger-router-controller": "detach",
