@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"sourceMap": true
+	},
+	"files": [
+		"index.ts",
+		"controllers/detach.ts"
+	]
+}

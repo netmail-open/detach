@@ -1,0 +1,73 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "API to strip (and reattach) email attachments",
+		"version": "0.0.1",
+		"title": "Detach API",
+		"contact": {
+			"email": "owen.swerkstrom@netgovern.com"
+		},
+		"license": {
+			"name" : "GNU Lesser General Public License v2.1 or later",
+			"url" : "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt"
+		}
+	},
+	"basePath": "/",
+	"schemes": [ "http", "https" ],
+	"paths": {
+		"/detach/": {
+			"post": {
+				"summary": "submit email",
+				"description": "post an email with attachments and receive a stripped version",
+				"operationId": "stripAttachments",
+				"x-swagger-router-controller": "detach",
+				"consumes": [ "text/plain" ],
+				"produces": [ "text/plain" ],
+				"parameters" : [ {
+					"in": "body",
+					"name": "mime",
+					"description": "the email mime",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				} ],
+				"responses" : {
+					"200" : {
+						"description" : "the stripped email mime"
+					},
+					"400" : {
+						"description" : "bad input parameter"
+					}
+				}
+			}
+		},
+		"/reattach/": {
+			"post": {
+				"summary": "submit email",
+				"description": "post an email with stripped attachments and receive a recovered version",
+				"operationId": "recoverAttachments",
+				"x-swagger-router-controller": "detach",
+				"consumes": [ "text/plain" ],
+				"produces": [ "text/plain" ],
+				"parameters" : [ {
+					"in": "body",
+					"name": "mime",
+					"description": "the email mime",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				} ],
+				"responses" : {
+					"200" : {
+						"description" : "the stripped email mime"
+					},
+					"400" : {
+						"description" : "bad input parameter"
+					}
+				}
+			}
+		}
+    }
+}

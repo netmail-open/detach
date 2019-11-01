@@ -1,0 +1,49 @@
+NetGovern Detach service
+========================
+
+This is a free/libre sucessor to Netmail Secure's Attachment Stripping Agent.
+It consists of:
+
+- a RESTful detach API (node service)
+- a milter wrapper
+- some quick tests
+
+
+Configuration
+-------------
+
+Detach needs a place to store the stripped attachments.
+(and maybe something to tell it a transformed url)
+
+
+Requirements
+------------
+
+- npm
+- typescript
+
+
+Build
+-----
+
+Build the "api" source directory:
+$ cd api
+$ npm install
+$ tsc
+
+Optionally, build the milter:
+$ cd milter
+$ npm install
+$ tsc
+
+
+Run
+---
+
+Once the detach api service is built:
+$ cd api
+$ node .
+
+optionally, run the milter:
+$ cd milter
+$ node .

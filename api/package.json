@@ -1,0 +1,33 @@
+{
+  "name": "netgovern-detach",
+  "version": "0.0.1",
+  "description": "api server for detach",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.netmail.com:7999/open/detach.git"
+  },
+  "author": "Owen Swerkstrom",
+  "license": "LGPL-2.1-or-later",
+  "dependencies": {},
+  "keywords": [
+    "email",
+    "attachment",
+    "attachmentstrip",
+    "milter"
+  ],
+  "devDependencies": {
+    "@types/node": "^12.11.7",
+    "commander": "^3.0.2",
+    "connect": "^3.7.0",
+    "fs-extra": "^8.1.0",
+    "mailsplit": "^4.4.1",
+    "path": "^0.12.7",
+    "swagger-tools": "^0.10.4",
+    "typescript": "^3.6.4",
+    "util.promisify": "^1.0.0"
+  }
+}
