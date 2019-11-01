@@ -19,7 +19,7 @@ function sendToStore(part, node, filename, type) {
 		return new Promise((resolve, reject) => {
 			let req = http.request({
 				hostname: uri.hostname,
-				port: uri.port,
+				port: uri.port || 80,
 				method: "POST",
 				headers: {
 					"Content-Type": type,
@@ -87,6 +87,9 @@ export function stripAttachments(req, res, next) {
 			node.setFilename("");
 			node.headers.remove("Content-Disposition");
 			node.headers.add("X-NetGovern-Detach", new Date().toISOString());
+			// TODO: what is the right header to use here?
+			//node.headers.add("Expires",
+			//new Date(new Date().valueOf() + 1000*60*60*24*7 ).toUTCString());
 			node.setContentType("text/plain");
 			node.encoding = "";
 
@@ -163,7 +166,7 @@ function recvFromStore(part, node) {
 		return new Promise((resolve, reject) => {
 			let req = http.request({
 				hostname: uri.hostname,
-				port: uri.port,
+				port: uri.port || 80,
 				method: "GET",
 				headers: {},
 				path: uri.pathname
