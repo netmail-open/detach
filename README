@@ -44,12 +44,12 @@ $ STORE=http://caspoorhost:3237 node .
 Use
 ---
 
-To strip attachments from a message, POST its RFC822 data to /detach/ :
+To strip attachments from a message, POST its RFC822 data to /detach/ :  
 $ curl -H "Content-Type: text/plain" --data-binary @test.eml -X POST \  
     http://localhost:7001/detach/ >stripped.eml  
 
 The message will then contain links instead of attachments.
 
-To restore the attachments, POST a stripped message to /reattach/ :
+To restore the attachments, POST a stripped message to /reattach/ :  
 $ curl -H "Content-Type: text/plain" --data-binary @stripped.eml -X POST \  
     http://localhost:7001/reattach/ >restored.eml  
