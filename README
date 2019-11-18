@@ -11,13 +11,12 @@ It consists of:
 
 Configuration
 -------------
-
-Detach needs a place to store the stripped attachments.  Provide this with a
-  STORE
-environment variable, or with the --store argument.
-
-PORT or --port will similarly configure which port detach should listen on.
-
+```
+STORE     or --store      -  CAS to use when storing stripped attachments.
+PORT      or --port       -  which port detach should listen on.
+TRANSFORM or --transform  -  URL transform service
+REPLACE   or --replace    -  simple hostname substitution
+```
 
 Requirements
 ------------
@@ -55,3 +54,6 @@ The message will then contain links instead of attachments.
 To restore the attachments, POST a stripped message to /reattach/ :  
 $ curl -H "Content-Type: text/plain" --data-binary @stripped.eml -X POST \  
   http://localhost:7001/reattach/ >restored.eml  
+
+For a simple reference implementation of a URL transform service, see  
+test/transform.js

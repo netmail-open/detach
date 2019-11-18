@@ -31,8 +31,36 @@ function sendToStore(part, node, filename, type) {
 				},
 				path: uri.pathname
 			}, function(res) {
-				console.log("stored:   " + res.headers["location"]);
-				resolve(res.headers["location"]);
+				let ret = res.headers["location"];
+				console.log("stored:   " + ret);
+				if(process.env.TRANSFORM) {
+					// if we're configured with a url transform service, use it
+					let loc = url.parse(process.env.TRANSFORM);
+					let treq = http.request({
+						hostname: loc.hostname,
+						port: loc.port || 80,
+						method: "POST",
+						headers: {
+							"Host": loc.hostname,
+							"Content-Type": "text/plain"
+						},
+						path: loc.pathname
+					}, function(tres) {
+						resolve(tres.headers["location"]);
+					});
+					treq.on("error", function(err) {
+						console.error("failed to contact transform");
+						reject(err);
+					});
+					treq.end(ret);
+				} else if(process.env.REPLACE) {
+					// if we're configured with a simple host replace, do it
+					let loc = url.parse(ret);
+					resolve(ret.replace(loc.hostname, process.env.REPLACE));
+				} else {
+					// otherwise return the url as we got it from the store
+					resolve(ret);
+				}
 			});
 			req.on("error", function(err) {
 				console.error("failed to contact store");

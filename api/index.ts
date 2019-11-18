@@ -46,6 +46,7 @@ if(require.main === module) {
 		.option("-p, --port", "port to listen on (env: PORT)")
 		.option("-s, --store", "URL of HTTP storage service (env: STORE)")
 		.option("-t, --transform", "URL-transformation service (env: TRANSFORM)")
+		.option("-r, --replace", "replace hostname in URLs (env: REPLACE)")
 		.parse(process.argv);
     cmdopts = program.opts();
 }
@@ -54,6 +55,7 @@ Promise.resolve().then(() => {
 	process.env.PORT = cmdopts["port"] || process.env.PORT || 7001;
 	process.env.STORE = cmdopts["store"] || process.env.STORE || "";
 	process.env.TRANSFORM = cmdopts["transform"] || process.env.TRANSFORM || "";
+	process.env.REPLACE = cmdopts["replace"] || process.env.REPLACE || "";
     return;
 })
 .then(() => {
@@ -134,6 +136,11 @@ Promise.resolve().then(() => {
 				console.log("Using store " + process.env.STORE);
 			} else {
 				console.log("No STORE provided; attachments will just vanish");
+			}
+			if(process.env.TRANSFORM) {
+				console.log("Using transform " + process.env.TRANSFORM);
+			} else if(process.env.REPLACE) {
+				console.log("Using replacement host " + process.env.REPLACE);
 			}
 		});
 	});
